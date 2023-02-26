@@ -4,8 +4,6 @@ import { config } from  'dotenv'
 import { PrismaService } from './database/prisma.service';
 import cors from 'cors'
 
-import * as session from 'express-session';
-import passport from 'passport';
 import { SwaggerDocumentation } from './doc/swagger/config';
 
 async function bootstrap() {
@@ -14,7 +12,7 @@ async function bootstrap() {
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app)
   const swagger = new SwaggerDocumentation(app)
-  app.use(cors());
+  app.enableCors({origin: '*'})
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
