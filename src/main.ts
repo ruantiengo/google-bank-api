@@ -13,6 +13,7 @@ async function bootstrap() {
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app)
   const swagger = new SwaggerDocumentation(app)
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

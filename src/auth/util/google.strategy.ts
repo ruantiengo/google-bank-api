@@ -17,7 +17,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) {
-    const { email, name } = profile._json
+    const { email, name, picture } = profile._json
     const user =  await this.userService.findByEmail(email)
     const myAccessToken = jwt.sign({ id: email }, process.env.GOOGLE_CLIENT_ID, {
       expiresIn: '12h'
@@ -32,7 +32,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       })
     }
     else done(null, {
-      profile,
+      email,
+      name,
+      picture,
       myAccessToken,
       refreshToken,
       isNewUser: false
