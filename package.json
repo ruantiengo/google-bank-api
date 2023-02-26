@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.2.1",
     "@prisma/client": "^4.10.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express-session": "^1.17.3",
     "google-auth-library": "^8.7.0",
