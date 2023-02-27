@@ -3,7 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 
 import { UsersService } from 'src/users/users.service';
 import { CreatePreUserDTO } from './dto/create-pre-user.dto';
-
+import * as jwt from 'jsonwebtoken'
 
 @Injectable()
 export class AuthService {
@@ -38,5 +38,25 @@ export class AuthService {
     return preUser
   }
 
+  async validate(credentials: CreatePreUserDTO) {
+    const { email, name } = credentials
+    const user =  await this.userService.findByEmail(email)
+    const accessToken = jwt.sign({ id: email }, process.env.GOOGLE_CLIENT_ID, {
+      expiresIn: '12h'
+    })
+    if(!user){
+      const preUser = await this.findOrCreatePreUser({email, name})
+      return {
+        ...preUser,
+        myAccessToken: accessToken,
+        isNewUser: true
+      }
+    }
+    else return {
+      ...user,
+      myAccessToken: accessToken,
+      isNewUser: false
+    }
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import * as passport from 'passport';
 import { OAuth2Client } from 'google-auth-library';
@@ -10,7 +10,7 @@ export class GoogleAuthMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
-      return res.status(401).json({ message: 'Authorization token is missing' });
+      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'Authorization token is missing' });
     }
 
     try {
@@ -23,7 +23,7 @@ export class GoogleAuthMiddleware implements NestMiddleware {
       }
     } catch (err) {
       console.error(err);
-      return res.status(401).json({ message: 'Invalid authorization token' });
+      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'Invalid authorization token' });
     }
   }
 }

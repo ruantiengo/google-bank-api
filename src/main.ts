@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { config } from  'dotenv'
 import { PrismaService } from './database/prisma.service';
-import cors from 'cors'
 
 import { SwaggerDocumentation } from './doc/swagger/config';
 
