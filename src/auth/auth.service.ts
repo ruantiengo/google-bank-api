@@ -48,7 +48,7 @@ export class AuthService {
       const preUser = await this.findOrCreatePreUser({email, name})
       return {
         ...preUser,
-        myAccessToken: accessToken,
+        accessToken: accessToken,
         isNewUser: true
       }
     }
