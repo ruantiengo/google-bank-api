@@ -54,7 +54,7 @@ export class AuthService {
     }
     else return {
       ...user,
-      myAccessToken: accessToken,
+      accessToken: accessToken,
       isNewUser: false
     }
   }
