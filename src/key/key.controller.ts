@@ -25,7 +25,7 @@ export class KeyController {
     if(createKeyDto.type.toString() === "EMAIL" && !emailValidator(createKeyDto.value) ){
       return response.status(400).json(invalidError(Type.Email.toString()))
     }
-    if(createKeyDto.type.toString() === "phone" && !phoneValidator(createKeyDto.value)){
+    if(createKeyDto.type.toString() === "PHONE" && !phoneValidator(createKeyDto.value)){
       return response.status(400).json(invalidError(Type.Phone.toString()))
     }
     const chavesKeys = await this.keyService.findKeysByUserId(createKeyDto.ownerId)
