@@ -59,9 +59,9 @@ export class KeyController {
   }
 
   @Get(':key')
-  async findUserIdByKey(@Param('userId') userId: number, @Res() response: Response) {
+  async findUserIdByKey(@Param('key') key: string, @Res() response: Response) {
     try{
-      const keys = await this.keyService.findKeysByUserId(userId)
+      const keys = await this.keyService.findUserIdByKey(key);
       return response.send(keys)
     }
     catch(err){
