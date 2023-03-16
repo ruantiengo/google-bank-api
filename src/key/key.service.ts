@@ -39,6 +39,15 @@ export class KeyService {
     return keys as unknown as Key[]
   }
 
+  async findUserIdByKey(key: string): Promise<Key[]>{
+    const keys =  await this.prisma.key.findMany({
+      where: {
+        value: key
+      }
+    })
+    return keys as unknown as Key[]
+  }
+
   async findByValue(value: string) {
     return this.prisma.key.findFirst({
       where: {
