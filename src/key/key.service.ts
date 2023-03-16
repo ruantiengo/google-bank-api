@@ -43,6 +43,9 @@ export class KeyService {
     const keys =  await this.prisma.key.findMany({
       where: {
         value: key
+      },
+      include: {
+        owner: true
       }
     })
     return keys as unknown as Key[]
